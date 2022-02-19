@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+pipenv run coverage run --source='codehighlighter/' --branch -m unittest discover -s test/ -t . && \
+pipenv run coverage html
