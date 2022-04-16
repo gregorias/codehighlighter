@@ -1,3 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env fish
 
-xclip -selection clipboard -o | python -m codehighlighter.main "$@" --inline | xclip -selection clipboard
+if test (uname) = "Darwin"
+  set -x COPY  pbcopy
+  set -x PASTE pbpaste
+else
+  set -x COPY  "xclip -selection clipboard"
+  set -x PASTE "xclip -selection clipboard -o"
+end
+
+$PASTE | python -m codehighlighter.main $argv | $COPY
