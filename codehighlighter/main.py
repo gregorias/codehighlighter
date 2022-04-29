@@ -46,7 +46,7 @@ def highlight(content: str, language='haskell', inline=False):
         highlighted = highlighted.removesuffix('</pre>')
         highlighted = highlighted.removeprefix('<span></span>')
         highlighted = (
-            f'<div class="pygments-block">\n  <pre><code>{highlighted}'
+            f'<div class="pygments pygments-block">\n  <pre><code>{highlighted}'
             + '</code></pre>\n</div>\n'
         )
     highlighted = apply_eye_candy(highlighted, language=language)
