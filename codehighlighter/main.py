@@ -39,10 +39,16 @@ def highlight(content: str, language='haskell', inline=False):
     else:
         htmlf = pygments.formatters.get_formatter_by_name('html')
         highlighted = pygments.highlight(content, lexer, htmlf)
+        highlighted = highlighted.strip()
         highlighted = highlighted.removeprefix('<div class="highlight">')
+        highlighted = highlighted.removesuffix('</div>')
+        highlighted = highlighted.removeprefix('<pre>')
+        highlighted = highlighted.removesuffix('</pre>')
+        highlighted = highlighted.removeprefix('<span></span>')
         highlighted = (
-            '<div class="highlight" style="display:flex; justify-content:center;">'
-            + highlighted)
+            f'<div class="pygments-block">\n  <pre><code>{highlighted}'
+            + '</code></pre>\n</div>\n'
+        )
     highlighted = apply_eye_candy(highlighted, language=language)
     if inline:
         highlighted = remove_spurious_inline_newline(highlighted)
